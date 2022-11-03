@@ -1,0 +1,15 @@
+Para definir o Visual Studio Code como seu editor padrão, digite esta linha de código na linha de comando:
+
+git config --global core.editor 'code --wait'
+Para finalizar, verificamos que tudo funciona corretamente, abrindo o arquivo de configuração do git digitando no terminal:
+
+git config --global -e
+
+Se você também quiser fazer com que o Visual Studio Code vire sua ferramenta de difftool padrão, você precisa entrar no arquivo de configuração global do Git.
+
+Isso, você pode acessar através do comando git config –global -e mencionado anteriormente, mas é necessário adicionar essas entradas (ou substituir as já existentes):
+
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE

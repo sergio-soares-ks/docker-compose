@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  keycloak:
+    container_name: keycloak
+    image: "jboss/keycloak:15.0.2"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      DEBUG: true
+      DEBUG_PORT: '*:8787'
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: admin
+      DB_PASSWORD: admin
+    ports:
+      - "8180:8080"
+      - "8787:8787"
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend
+    driver: bridge
