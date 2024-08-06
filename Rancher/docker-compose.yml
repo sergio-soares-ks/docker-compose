@@ -1,24 +1,28 @@
-version: '2'
+version: '2.2'
 
 services:
  rancher:
     image: rancher/rancher:latest
     container_name: rancher-server
-    depends_on:
-      - postgres
     privileged: true
     environment:
       CATTLE_DB_CATTLE_DATABASE: postgres
       CATTLE_DB_CATTLE_POSTGRES_HOST: postgres
       CATTLE_DB_CATTLE_POSTGRES_PORT: 5432
       CATTLE_DB_CATTLE_POSTGRES_NAME: rancherdb
-      CATTLE_DB_CATTLE_POSTGRES_USERNAME: rancher
-      CATTLE_DB_CATTLE_POSTGRES_PASSWORD: rancherpass
+      CATTLE_DB_CATTLE_POSTGRES_USERNAME: admin
+      CATTLE_DB_CATTLE_POSTGRES_PASSWORD: admin
     ports:
       - "80:8081"
       - "443:443"
     volumes:
-      - rancher-data:/var/lib/rancher
-    privileged: true    
+      - rancher-data:/var/lib/rancher   
     networks:
-      
+      - backend
+volumes:
+  rancher-data:
+    driver: local
+networks:
+  backend:
+    name: backend
+    driver: bridge
