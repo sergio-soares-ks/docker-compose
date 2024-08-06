@@ -1,15 +1,24 @@
 version: '2'
 
 services:
-  rancher:
-    image: rancher/rancher:v2.7.s1-head
-    restart: always
-    ports:
-    - "8080:8080/tcp"
-    - "443:443/tcp"
-    volumes:
-    - "rancher-data:/var/lib/rancher"
+ rancher:
+    image: rancher/rancher:latest
+    container_name: rancher-server
+    depends_on:
+      - postgres
     privileged: true
-
-volumes:
-  rancher-data:
+    environment:
+      CATTLE_DB_CATTLE_DATABASE: postgres
+      CATTLE_DB_CATTLE_POSTGRES_HOST: postgres
+      CATTLE_DB_CATTLE_POSTGRES_PORT: 5432
+      CATTLE_DB_CATTLE_POSTGRES_NAME: rancherdb
+      CATTLE_DB_CATTLE_POSTGRES_USERNAME: rancher
+      CATTLE_DB_CATTLE_POSTGRES_PASSWORD: rancherpass
+    ports:
+      - "80:8081"
+      - "443:443"
+    volumes:
+      - rancher-data:/var/lib/rancher
+    privileged: true    
+    networks:
+      
