@@ -11,4 +11,4 @@ kubectl get po -A
 
 
 Instalação do Kubernets 
-https://kubernetes.io/pt-br/docs/setup/
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
